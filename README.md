@@ -1,19 +1,21 @@
 # Real-Time Object Detection System (TensorFlow SSD + OpenCV)
 
-> A production-oriented computer vision pipeline for real-time object detection, localization, and classification on image, video, and webcam streams using TensorFlow SSD MobileNet v3 and OpenCV DNN.
+> A deep learning object detection pipeline using TensorFlow SSD MobileNet v3 artifacts and OpenCV DNN for real-time webcam inference, with extension points for image and video inputs.
 
 ## Overview
 
-This project implements an end-to-end object detection system using a TensorFlow SSD model with OpenCV-based inference.
+This project implements an end-to-end object detection workflow using pre-trained TensorFlow SSD model artifacts with OpenCV-based inference.
 
-Developed in Nov 2022 and associated with Kafr El-Sheikh University, the system is engineered as a full detection pipeline, not only a model training exercise. It ingests visual input, applies standardized preprocessing, runs neural inference, and returns structured detections for downstream usage.
+Developed in Nov 2022 and associated with Kafr El-Sheikh University, the system focuses on practical inference workflow design. It ingests visual input, applies standardized preprocessing, runs neural inference, and returns structured detections for downstream usage.
+
+Current repository scope is inference-focused and includes webcam-based detection in a notebook. Model training, dataset annotation tooling, and formal detection-metric evaluation are not implemented in this version.
 
 The implementation emphasizes:
 
 - reliable inference with pre-trained TensorFlow artifacts
 - clear preprocessing and label mapping stages
 - interpretable output with bounding boxes, class labels, and confidence scores
-- design extensibility for image, video, and live camera scenarios
+- webcam-first implementation with extensibility to image/video inputs
 
 Typical use cases include smart surveillance prototypes, classroom/lab computer vision experiments, and rapid proof-of-concept systems for visual automation.
 
@@ -56,7 +58,8 @@ The system follows a layered inference pipeline:
 - Real-time object detection with bounding box localization
 - Multi-class prediction using a COCO label map
 - Confidence scoring for each detected object
-- Modular pipeline that can support webcam, image, and video sources
+- Live webcam detection implemented in notebook (`cv2.VideoCapture(0)`)
+- Pipeline structure can be adapted to image and video sources
 - Readable and transferable inference workflow for academic and applied AI settings
 
 ## Technical Highlights
@@ -72,10 +75,21 @@ The system follows a layered inference pipeline:
 - Extensible output contract
 	- The system returns both rendered frames and structured detection tensors, supporting downstream analytics or API integration.
 
+## Scope Clarification
+
+- Implemented
+	- Real-time webcam inference with TensorFlow SSD artifacts via OpenCV DNN
+	- Preprocessing configuration (`setInputSize`, `setInputScale`, `setInputMean`, `setInputSwapRB`)
+	- Bounding box drawing, label mapping, confidence display, and structured outputs (`classIds`, `confs`, `bbox`)
+- Not implemented in current version
+	- Model training/fine-tuning pipeline
+	- Dataset annotation management
+	- Formal metric reporting (e.g., mAP, precision/recall curves)
+
 ## Tech Stack
 
 - Python
-- TensorFlow (model artifacts)
+- TensorFlow SSD MobileNet v3 (pre-trained model artifacts)
 - OpenCV (`cv2.dnn` inference engine)
 - NumPy
 - Jupyter Notebook
@@ -103,7 +117,7 @@ source .venv/bin/activate
 ### 3. Install Dependencies
 
 ```bash
-pip install opencv-python tensorflow numpy jupyter
+pip install opencv-python numpy jupyter
 ```
 
 ### 4. Verify Required Artifacts
@@ -137,7 +151,7 @@ Example result format:
 Detected: PERSON | Confidence: 92.31% | Box: [x, y, w, h]
 ```
 
-- Role: Applied AI Engineer (implementation, preprocessing pipeline, inference workflow, evaluation)
+- Role: Applied AI Engineer (model integration, preprocessing setup, inference workflow, and live detection pipeline)
 - Timeline: Nov 2022
 - Affiliation: Kafr El-Sheikh University
 
